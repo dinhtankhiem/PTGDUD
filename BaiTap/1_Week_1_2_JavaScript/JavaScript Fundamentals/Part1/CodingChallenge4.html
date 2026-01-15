@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coding Challenge 4</title>
+</head>
+<link rel="stylesheet" href="style.css">
+
+<body>
+    <div class="container">
+        <h1>Coding Challenge 4</h1>
+        <h2>Tính tiền tip cho hóa đơn</h2>
+
+        <form>
+            <label for="Tổng tiền hóa đơn">Nhập tổng tiền hóa đơn:</label>
+            <input type="number" id="tongTien" name="TongTien" placeholder="Nhập tổng tiền hóa đơn">
+            <button type="button" id="btnCal">Tính tiền tip</button>
+        </form>
+
+        <div class="result">
+            <p>Tổng tiền hóa đơn: <span id="tongTienHoaDon"></span></p>
+            <p>Số tiền tip: <span id="soTienTip"></span></p>
+            <p>Tổng tiền phải trả: <span id="songTienPhaiTra"></span></p>
+    </div>
+
+    <script>
+        var button = document.getElementById("btnCal");
+        button.onclick = () => {
+            var tongTien = document .getElementById("tongTien").value;
+            var soTienTip = (tongTien >= 50 && tongTien <=300) ? tongTien * 0.15 : tongTien * 0.20;
+
+            document.getElementById("tongTienHoaDon").innerText = tongTien;
+            document.getElementById("soTienTip").innerText = soTienTip;
+            document.getElementById("songTienPhaiTra").innerText = parseFloat(tongTien) + soTienTip;
+
+        }
+    </script>
+    
+</body>
+</html>
