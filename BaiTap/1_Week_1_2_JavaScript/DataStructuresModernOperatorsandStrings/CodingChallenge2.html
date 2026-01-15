@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Challenge #2</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+  <h1>Coding Challenge #2</h1>
+
+  <button onclick="run()">Run Challenge #2</button>
+
+  <div class="result" id="result"></div>
+</div>
+
+<script>
+'use strict';
+
+const game = {
+  team1: 'Bayern Munich',
+  team2: 'Borrussia Dortmund',
+  scored: ['Lewandowski', 'Gnarby', 'Lewandowski', 'Hummels'],
+  odds: { team1: 1.33, x: 3.25, team2: 6.5 }
+};
+
+const result = document.getElementById('result');
+
+function run() {
+  result.innerHTML = '';
+
+  result.innerHTML += `<p><strong>Danh sách bàn thắng:</strong></p>`;
+  game.scored.forEach((player, i) => {
+    result.innerHTML += `<p>Goal ${i + 1}: ${player}</p>`;
+  });
+
+  const oddsValues = Object.values(game.odds);
+  let sum = 0;
+  for (const odd of oddsValues) sum += odd;
+  const avg = sum / oddsValues.length;
+
+  result.innerHTML += `<p><strong>Odd trung bình:</strong> ${avg.toFixed(2)}</p>`;
+
+  result.innerHTML += `<p>Odd of victory ${game.team1}: ${game.odds.team1}</p>`;
+  result.innerHTML += `<p>Odd of draw: ${game.odds.x}</p>`;
+  result.innerHTML += `<p>Odd of victory ${game.team2}: ${game.odds.team2}</p>`;
+
+  const scorers = {};
+  for (const player of game.scored) {
+    scorers[player] = scorers[player] ? scorers[player] + 1 : 1;
+  }
+
+  result.innerHTML += `<p><strong>Scorers:</strong></p>`;
+  for (const [player, goals] of Object.entries(scorers)) {
+    result.innerHTML += `<p>${player}: ${goals}</p>`;
+  }
+}
+</script>
+
+</body>
+</html>
