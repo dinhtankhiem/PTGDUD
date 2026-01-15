@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coding Challenge 3</title>
+</head>
+<link rel="stylesheet" href="style.css">
+<body>
+    <div class="container">
+        <h1>Coding Challenge 3</h1>
+        <h2>Tính điểm trung bình</h2>
+
+        <div style="display: flex; gap: 20px;">
+            <div style="flex: 1;">
+                <h3>Dolphins</h3>
+                <input type="number" id="D1" name="Dolphins điểm số 1" placeholder="Nhập điểm số 1 của Dolphins">
+                <input type="number" id="D2" name="Dolphins điểm số 2" placeholder="Nhập điểm số 2 của Dolphins">
+                <input type="number" id="D3" name="Dolphins điểm số 3" placeholder="Nhập điểm số 3 của Dolphins">
+            </div>
+            <div style="flex: 1;">
+                <h3>Koalas</h3>
+                <input type="number" id="K1" name="Koalas điểm số 1" placeholder="Nhập điểm số 1 của Koalas">
+                <input type="number" id="K2" name="Koalas điểm số 2" placeholder="Nhập điểm số 2 của Koalas">
+                <input type="number" id="K3" name="Koalas điểm số 3" placeholder="Nhập điểm số 3 của Koalas">
+            </div>
+        </div>
+        
+            
+            
+        <button type="button" id="btnCal" style="background-color: blue; color: #fff; display: block; margin: 20px auto;">Tính điểm trung bình</button>
+        <div class="result">
+            <p>Điểm trung bình của Dolphins: <span id="DolphinsAvg"></span></p>
+            <p>Điểm trung bình của Koalas: <span id="KoalasAvg"></span></p>
+            <p>Kết luận: <span id="ketLuan"></span></p>
+        </div>
+    </div>
+
+    <script>
+        var button = document.getElementById("btnCal");
+        button.onclick = () => {
+            var D1 = document.getElementById("D1").value;
+            var D2 = document.getElementById("D2").value;
+            var D3 = document.getElementById("D3").value;
+            var K1 = document.getElementById("K1").value;
+            var K2 = document.getElementById("K2").value;
+            var K3 = document.getElementById("K3").value;
+            DAvg = (parseFloat(D1) + parseFloat(D2) + parseFloat(D3)) / 3;
+            KAvg = (parseFloat(K1) + parseFloat(K2) + parseFloat(K3)) / 3;
+            document.getElementById("DolphinsAvg").innerText = DAvg;
+            document.getElementById("KoalasAvg").innerText = KAvg;
+
+            if (DAvg >=100 && KAvg >=100) {
+                if (DAvg>KAvg) {
+                    document.getElementById("ketLuan").innerText = "Dolphins thắng.";
+                } else if (KAvg>DAvg) {
+                    document.getElementById("ketLuan").innerText = "Koalas thắng.";
+                } else {
+                    document.getElementById("ketLuan").innerText = "Hòa nhau.";
+                }
+            } else {
+                document.getElementById("ketLuan").innerText = "Không đội nào đạt điểm tối thiểu để thắng.";
+            }
+        };
+    </script>
+    
+    
+</body>
+</html>
