@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Coding Challenge 2</title>
+</head>
+
+<link rel="stylesheet" href="style.css" />
+<body>
+  <div class="container">
+    <h1>Coding Challenge 2</h1>
+
+    <p>Điểm của bạn: <span id="score">0</span></p>
+    <p>Bí mật mới: <span id="secretNumber">?</span></p>
+
+    <div style="margin: 20px auto; display: flex; gap: 20px;">
+      <button id="play">Play</button>
+      <button id="reset">Reset</button>
+    </div>
+  </div>
+
+  <script>
+    // DOM elements
+    const playButton = document.getElementById("play");
+    const resetButton = document.getElementById("reset");
+    const scoreEl = document.getElementById("score");
+    const secretNumberEl = document.getElementById("secretNumber");
+
+    // Game data
+    let score = 0;
+    let secretNumber = "?";
+
+    function updateDisplay() {
+      scoreEl.textContent = score;
+      secretNumberEl.textContent = secretNumber;
+    }
+
+    playButton.onclick = function () {
+      score = Math.floor(Math.random() * 20) + 1;
+      secretNumber = Math.floor(Math.random() * 20) + 1;
+      updateDisplay();
+    };
+
+    resetButton.onclick = function () {
+      score = 0;
+      secretNumber = "?";
+      updateDisplay();
+    };
+
+    // Initial render
+    updateDisplay();
+  </script>
+</body>
+</html>
