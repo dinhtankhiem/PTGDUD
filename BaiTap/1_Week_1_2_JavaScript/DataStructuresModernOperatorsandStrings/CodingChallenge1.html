@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Challenge #1</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+  <h1>Coding Challenge #1</h1>
+
+  <button onclick="run()">Run Challenge #1</button>
+
+  <div class="result" id="result"></div>
+</div>
+
+<script>
+'use strict';
+
+const game = {
+  team1: 'Bayern Munich',
+  team2: 'Borrussia Dortmund',
+  players: [
+    [
+      'Neuer','Pavard','Martinez','Alaba','Davies',
+      'Kimmich','Goretzka','Coman','Muller','Gnarby','Lewandowski',
+    ],
+    [
+      'Burki','Schulz','Hummels','Akanji','Hakimi',
+      'Weigl','Witsel','Hazard','Brandt','Sancho','Gotze',
+    ],
+  ],
+  scored: ['Lewandowski', 'Gnarby', 'Lewandowski', 'Hummels'],
+  odds: { team1: 1.33, x: 3.25, team2: 6.5 }
+};
+
+const result = document.getElementById('result');
+
+function run() {
+  result.innerHTML = '';
+
+  const [players1, players2] = game.players;
+
+  const [gk, ...fieldPlayers] = players1;
+
+  const allPlayers = [...players1, ...players2];
+
+  const players1Final = [...players1, 'Thiago', 'Coutinho', 'Perisic'];
+
+  const { team1, x: draw, team2 } = game.odds;
+
+  function printGoals(...players) {
+    result.innerHTML += `<p><strong>Cầu thủ ghi bàn:</strong></p>`;
+    players.forEach(p => result.innerHTML += `<p>- ${p}</p>`);
+    result.innerHTML += `<p><strong>Tổng bàn thắng:</strong> ${players.length}</p>`;
+  }
+
+  let winner = '';
+  team1 < team2 && (winner = game.team1);
+  team2 < team1 && (winner = game.team2);
+
+  result.innerHTML += `<p><strong>Thủ môn đội 1:</strong> ${gk}</p>`;
+  result.innerHTML += `<p><strong>Cầu thủ sân đội 1:</strong> ${fieldPlayers.join(', ')}</p>`;
+  result.innerHTML += `<p><strong>Tổng số cầu thủ:</strong> ${allPlayers.length}</p>`;
+  result.innerHTML += `<p><strong>Đội 1 sau thay người:</strong> ${players1Final.join(', ')}</p>`;
+  result.innerHTML += `<p><strong>Odds:</strong> ${team1} | ${draw} | ${team2}</p>`;
+
+  printGoals(...game.scored);
+
+  result.innerHTML += `<p><strong>Đội có khả năng thắng cao hơn:</strong> ${winner}</p>`;
+}
+</script>
+
+</body>
+</html>
