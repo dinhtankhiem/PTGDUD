@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coding Challenge 3</title>
+</head>
+<link rel="stylesheet" href="style.css">
+<body>
+    <div class="container">
+        <h2>Tính chỉ số BMI</h2>
+        <div style="display: flex;">
+            <div style="flex: 1;">
+                <h3>Người thứ nhất</h3>
+                <input type="text" id="name1" name="name" placeholder="Nhập tên người thứ nhất">
+                <input type="number" id="w1" name="w1" placeholder="Nhập cân nặng(kg) của người thứ nhất">
+                <input type="number" id="h1" name="h1" placeholder="Nhập chiều cao(m) của người thứ nhất">
+            </div>
+            <div style="flex: 1;">
+                <h3>Người thứ hai</h3>
+                <input type="text" id="name2" name="name2" placeholder="Nhập tên người thứ hai">
+                <input type="number" id="w2" name="w2" placeholder="Nhập cân nặng(kg) của người thứ hai">
+                <input type="number" id="h2" name="h2" placeholder="Nhập chiều cao(m) của người thứ hai">
+            </div>
+        </div>
+        <button type="button" id="btnCal" style="background-color: blue; color: #fff; display: block; margin: 20px auto;">Tính chỉ số BMI</button>
+        <div class="result">
+            <p>Kết luận: <span id="ketLuan"></span></p>
+        </div>
+    </div>
+    <script>
+        
+        var button = document.getElementById("btnCal");
+        button.onclick = () => {
+           const nguoi1 = {
+            name: document.getElementById("name1").value,
+            weight: parseFloat(document.getElementById("w1").value),
+            height: parseFloat(document.getElementById("h1").value),
+            bmi: function() {
+                return this.weight / (this.height * this.height);
+            }
+        }
+        const nguoi2 = {
+            name: document.getElementById("name2").value,
+            weight: parseFloat(document.getElementById("w2").value),
+            height: parseFloat(document.getElementById("h2").value),
+            bmi: function() {
+                return this.weight / (this.height * this.height);
+            }
+        }
+        var conclusion = "";
+        if (nguoi1.bmi() > nguoi2.bmi()) {
+            conclusion = nguoi1.name + "(BMI: " + nguoi1.bmi().toFixed(2) + ") có chỉ số BMI cao hơn " + nguoi2.name + " (BMI: " + nguoi2.bmi().toFixed(2) + ")";
+        } else if (nguoi1.bmi() < nguoi2.bmi()) {
+            conclusion = nguoi2.name + "(BMI: " + nguoi2.bmi().toFixed(2) + ") có chỉ số BMI cao hơn " + nguoi1.name + " (BMI: " + nguoi1.bmi().toFixed(2) + ")";
+        } else {
+            conclusion = nguoi1.name + " và " + nguoi2.name + " có chỉ số BMI bằng nhau";
+        }
+        document.getElementById("ketLuan").textContent = conclusion;
+        }
+    </script>
+</body>
+</html>

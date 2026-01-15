@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coding Challenge 2</title>
+</head>
+<link rel="stylesheet" href="style.css">
+
+<body>
+    <div class="container">
+        <h1>Coding Challenge 2</h1>
+        <h2>Tính tiền tip cho hóa đơn</h2>
+
+        <form>
+            <label for="tongTiens">Tổng tiền các hóa đơn(các hóa đơn cách nhau bởi dấu phẩy (VD 111,222,333)"</label>
+            <input type="text" id="tongTiens" name="TongTiens" placeholder="Nhập tổng tiền hóa đơn">
+            <button type="button" id="btnCal">Tính tiền tip</button>
+        </form>
+
+        <div class="result">
+            <p><span id="ketLuan"></span></p>
+    </div>
+
+    <script>
+        var button = document.getElementById("btnCal");
+        button.onclick = () => {
+            var tongTiens = document.getElementById("tongTiens").value;
+            var tongTiensArray = tongTiens.split(',').map(item => parseFloat(item.trim()));
+            var tongTienHoaDon = 0;
+            var soTienTipArray = [];
+            for (var i = 0; i < tongTiensArray.length; i++) {
+                var soTienTip = (tongTiensArray[i] >= 50 && tongTiensArray[i] <=300) ? tongTiensArray[i] * 0.15 : tongTiensArray[i] * 0.20;
+                soTienTipArray.push(soTienTip);
+                tongTienHoaDon += tongTiensArray[i];
+            }
+
+            var totalTip = 0;
+            var conclusion = "";
+            for (var j = 0; j < soTienTipArray.length; j++) {
+                totalTip += soTienTipArray[j];
+                conclusion += "Hóa đơn có tổng tiền " + tongTiensArray[j] + " có số tiền tip là " + soTienTipArray[j].toFixed(2) + ". Tổng tiền phải trả của hóa đơn này " + (tongTiensArray[j] + soTienTipArray[j]).toFixed(2) + "\n";
+            }
+
+            conclusion += "Tổng tiền tất cả các hóa đơn: " + tongTienHoaDon.toFixed(2) + "\n";
+            conclusion += "Tổng số tiền tip: " + totalTip.toFixed(2) + "\n";
+            conclusion += "Tổng tiền phải trả: " + (tongTienHoaDon + totalTip).toFixed(2);
+            document.getElementById("ketLuan").innerText = conclusion;
+        }
+    </script>
+    
+</body>
+</html>
