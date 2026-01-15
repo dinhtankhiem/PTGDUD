@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coding Challenge 2</title>
+</head>\
+<link rel="stylesheet" href="style.css">
+<body>
+    <div class="container">
+        <h1>Coding Challenge 2</h1>
+        <h2>Tính chỉ số BMI</h2>
+
+        <form>
+            <label for="Mark weight">Cân nặng của Mark: </label>
+            <input
+                type="number"
+                id="MW"
+                name="Mark weight"
+                placeholder="Nhập cân nặng của Mark"
+            />
+            <label for="Mark height">Chiều cao của Mark: </label>
+            <input
+                type="number"
+                id="MH"
+                name="Mark height"
+                placeholder="Nhập chiều cao của Mark"
+            />
+            <label for="John weight">Cân nặng của John: </label>
+            <input
+                type="number"
+                id="JW"
+                name="John weight"
+                placeholder="Nhập cân nặng của John"
+            />
+            <label for="John height">Chiều cao của John: </label>
+            <input
+                type="number"
+                id="JH"
+                name="John height"
+                placeholder="Nhập chiều cao của John"
+            />
+            <button type="button" id="btnCal" style="background-color: blue; color: #fff;">Tính chỉ số BMI</button>
+        </form>
+
+        <div class="result">
+            <p>Chỉ số BMI của Mark: <span id="MarkBMI"></span></p>
+            <p>Chỉ số BMI của John: <span id="JohnBMI"></span></p>
+            <p>Kết luận: <span id="ketLuan"></span></p>
+        </div>
+    </div>
+
+    <script>
+        var button = document.getElementById("btnCal");
+        button.onclick = () => {
+            var MW = document.getElementById("MW").value;
+            var MH = document.getElementById("MH").value;
+            var JW = document.getElementById("JW").value;
+            var JH = document.getElementById("JH").value;
+            var MarkBMI = MW / (MH * MH);
+            var JohnBMI = JW / (JH * JH);
+            
+            document.getElementById("MarkBMI").innerText = MarkBMI;
+            document.getElementById("JohnBMI").innerText = JohnBMI;
+            if (MarkBMI > JohnBMI) {
+                document.getElementById("ketLuan").innerText = "Mark có chỉ số BMI cao hơn John";
+            } else {
+                document.getElementById("ketLuan").innerText = "John có chỉ số BMI cao hơn Mark";
+            }
+        }
+    </script>
+    
+    
+</body>
+</html>
