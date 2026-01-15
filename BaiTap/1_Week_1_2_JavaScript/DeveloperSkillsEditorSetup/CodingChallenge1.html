@@ -23,6 +23,21 @@
         </div>
     </div>
 
+    <script>
+        var btnCal = document.getElementById("btnCal");
+        btnCal.onclick = function() {
+            var nhietDosInput = document.getElementById("nhietDos").value;
+            var nhietDosArray = nhietDosInput.split(" ").map(Number);
+            var ketLuan = document.getElementById("ketLuan");
+            var result = "";
+
+            for (var i = 0; i < nhietDosArray.length; i++) {
+                result += `... ${nhietDosArray[i]}°C in ${i + 1} days `;
+            }
+
+            ketLuan.textContent = result;
+        };
+    </script>
     
     
 </body>
