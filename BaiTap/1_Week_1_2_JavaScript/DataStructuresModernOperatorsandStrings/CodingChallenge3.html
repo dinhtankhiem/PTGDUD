@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Coding Challenge 3</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Coding Challenge 3</h1>
+    <button onclick="run()">Run</button>
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    'use strict';
+
+    function run() {
+      // Tạo map mới mỗi lần bấm Run để tránh bị xóa 64 rồi bấm lại bị mất dữ liệu
+      const gameEvents = new Map([
+        [17, '⚽ GOAL'],
+        [36, '🔁 Substitution'],
+        [47, '⚽ GOAL'],
+        [61, '🔁 Substitution'],
+        [64, '🟨 Yellow card'],
+        [69, '🟥 Red card'],
+        [70, '🔁 Substitution'],
+        [72, '🔁 Substitution'],
+        [76, '⚽ GOAL'],
+        [80, '⚽ GOAL'],
+        [92, '🟨 Yellow card'],
+      ]);
+
+      let ketLuan = '';
+
+      // 1) Tạo mảng các sự kiện không trùng lặp
+      const eventsValueIterator = gameEvents.values();     // iterator
+      const eventsValueArray = [...eventsValueIterator];   // array
+      const eventsValueSet = new Set(eventsValueArray);    // set (unique)
+      const eventsValue = [...eventsValueSet];             // array lại
+
+      ketLuan += `1. Các sự kiện xảy ra trong trận (không trùng): ${eventsValue.join(', ')}\n\n`;
+
+      // 2) Xóa sự kiện ở phút 64
+      gameEvents.delete(64);
+
+      // Map không join được, phải chuyển nó sang mảng để hiển thị
+      const gameEventsAfterDelete = [...gameEvents.entries()]
+        .map(([minute, event]) => `${minute}: ${event}`)
+        .join(' | ');
+
+      ketLuan += `2. Phút 64 có thẻ vàng bị oan → đã xóa.\n`;
+      ketLuan += `   Danh sách sự kiện sau khi xóa: ${gameEventsAfterDelete}\n\n`;
+
+      // 3) Tính trung bình (theo đề: 90 phút)
+      const eventCount = gameEvents.size;
+      const avgEvent = 90 / eventCount;
+
+      ketLuan += `3. Trung bình cứ mỗi ${avgEvent.toFixed(2)} phút lại có 1 sự kiện xảy ra (tính theo 90 phút)\n\n`;
+
+      // 4) In ra FIRST HALF / SECOND HALF
+      ketLuan += `4. Log theo hiệp:\n`;
+
+      for (const [minute, event] of gameEvents) {
+        const half = minute <= 45 ? 'FIRST' : 'SECOND';
+        ketLuan += `[${half} HALF] ${minute}: ${event}\n`;
+      }
+
+      // In kết quả ra màn hình (đặt trong run)
+      const result = document.getElementById('result');
+      result.innerText = ketLuan;
+    }
+  </script>
+</body>
+</html>
