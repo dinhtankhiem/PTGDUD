@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Challenge #1 - Car Constructor Function</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+<div class="container">
+    <h2>Coding Challenge #1 - Car (Constructor Function)</h2>
+
+    <form onsubmit="return false;">
+        <button onclick="run()">Run</button>
+        <button onclick="clearResult()">Clear</button>
+    </form>
+
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    function clearResult() {
+        document.getElementById("result").innerHTML = "";
+    }
+
+    function addTitle(text) {
+        var box = document.getElementById("result");
+        var h3 = document.createElement("h3");
+        h3.textContent = text;
+        box.appendChild(h3);
+    }
+
+    function addList(items) {
+        var box = document.getElementById("result");
+        var ul = document.createElement("ul");
+
+        var i;
+        for (i = 0; i < items.length; i++) {
+            var li = document.createElement("li");
+            li.textContent = items[i];
+            ul.appendChild(li);
+        }
+
+        box.appendChild(ul);
+    }
+
+    // 1) Constructor function
+    function Car(make, speed) {
+        this.make = make;
+        this.speed = speed;
+    }
+
+    // 2) accelerate (+10)
+    Car.prototype.accelerate = function () {
+        this.speed = this.speed + 10;
+        console.log(this.make + " going at " + this.speed + " km/h");
+    };
+
+    // 3) brake (-5)
+    Car.prototype.brake = function () {
+        this.speed = this.speed - 5;
+        console.log(this.make + " going at " + this.speed + " km/h");
+    };
+
+    // 4) Create 2 cars and test
+    function run() {
+        clearResult();
+        addTitle("Result");
+
+        var car1 = new Car("BMW", 120);
+        var car2 = new Car("Mercedes", 95);
+
+        var lines = [];
+
+        lines.push("Car 1: " + car1.make + " starts at " + car1.speed + " km/h");
+        car1.accelerate();
+        lines.push("BMW accelerate -> " + car1.speed + " km/h");
+        car1.accelerate();
+        lines.push("BMW accelerate -> " + car1.speed + " km/h");
+        car1.brake();
+        lines.push("BMW brake -> " + car1.speed + " km/h");
+
+        lines.push("Car 2: " + car2.make + " starts at " + car2.speed + " km/h");
+        car2.brake();
+        lines.push("Mercedes brake -> " + car2.speed + " km/h");
+        car2.accelerate();
+        lines.push("Mercedes accelerate -> " + car2.speed + " km/h");
+        car2.accelerate();
+        lines.push("Mercedes accelerate -> " + car2.speed + " km/h");
+
+        addList(lines);
+    }
+</script>
+</body>
+</html>
