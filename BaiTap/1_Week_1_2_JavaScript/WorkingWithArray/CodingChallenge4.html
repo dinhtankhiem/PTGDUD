@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Coding Challenge #4 - Dogs Food Analysis</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <h2>Coding Challenge #4 - Dogs Food Analysis</h2>
+
+        <form onsubmit="return false;">
+            <button onclick="runAll()">Run</button>
+            <button onclick="clearResult()">Clear</button>
+        </form>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        var dogs = [
+            { weight: 22, curFood: 250, owners: ['Alice', 'Bob'] },
+            { weight: 8, curFood: 200, owners: ['Matilda'] },
+            { weight: 13, curFood: 275, owners: ['Sarah', 'John'] },
+            { weight: 32, curFood: 340, owners: ['Michael'] }
+        ];
+
+        function clearResult() {
+            document.getElementById("result").innerHTML = "";
+        }
+
+        function addTitle(text) {
+            var resultBox = document.getElementById("result");
+            var h3 = document.createElement("h3");
+            h3.textContent = text;
+            resultBox.appendChild(h3);
+        }
+
+        function addSubTitle(text) {
+            var resultBox = document.getElementById("result");
+            var h4 = document.createElement("h4");
+            h4.textContent = text;
+            resultBox.appendChild(h4);
+        }
+
+        function addParagraph(text) {
+            var resultBox = document.getElementById("result");
+            var p = document.createElement("p");
+            p.textContent = text;
+            resultBox.appendChild(p);
+        }
+
+        function addList(items) {
+            var resultBox = document.getElementById("result");
+            var ul = document.createElement("ul");
+
+            var i;
+            for (i = 0; i < items.length; i++) {
+                var li = document.createElement("li");
+                li.textContent = items[i];
+                ul.appendChild(li);
+            }
+
+            resultBox.appendChild(ul);
+        }
+
+        function isEatingOkay(dog) {
+            var min = dog.recommendedFood * 0.90;
+            var max = dog.recommendedFood * 1.10;
+
+            if (dog.curFood > min && dog.curFood < max) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        function runAll() {
+            clearResult();
+
+            addTitle("DOG FOOD ANALYSIS RESULT");
+
+            var i;
+            for (i = 0; i < dogs.length; i++) {
+                dogs[i].recommendedFood = dogs[i].weight ** 0.75 * 28;
+            }
+
+            addSubTitle("1) Recommended food per dog");
+            var list1 = [];
+            for (i = 0; i < dogs.length; i++) {
+                list1.push(
+                    "Dog " + (i + 1) +
+                    " (" + dogs[i].owners.join(", ") + ")" +
+                    " | Recommended: " + dogs[i].recommendedFood.toFixed(0) + "g" +
+                    " | Current: " + dogs[i].curFood + "g"
+                );
+            }
+            addList(list1);
+
+            addSubTitle("2) Sarah's dog status");
+            var sarahDog = null;
+            for (i = 0; i < dogs.length; i++) {
+                if (dogs[i].owners.includes("Sarah")) {
+                    sarahDog = dogs[i];
+                    break;
+                }
+            }
+
+            if (sarahDog.curFood > sarahDog.recommendedFood) {
+                addParagraph("Sarah's dog is eating TOO MUCH.");
+            } else if (sarahDog.curFood < sarahDog.recommendedFood) {
+                addParagraph("Sarah's dog is eating TOO LITTLE.");
+            } else {
+                addParagraph("Sarah's dog is eating EXACTLY the recommended amount.");
+            }
+
+            addSubTitle("3) Owners of dogs who eat too much / too little");
+            var ownersEatTooMuch = [];
+            var ownersEatTooLittle = [];
+
+            for (i = 0; i < dogs.length; i++) {
+                if (dogs[i].curFood > dogs[i].recommendedFood) {
+                    ownersEatTooMuch = ownersEatTooMuch.concat(dogs[i].owners);
+                } else if (dogs[i].curFood < dogs[i].recommendedFood) {
+                    ownersEatTooLittle = ownersEatTooLittle.concat(dogs[i].owners);
+                }
+            }
+
+            addParagraph("Owners (too much): " + ownersEatTooMuch.join(", "));
+            addParagraph("Owners (too little): " + ownersEatTooLittle.join(", "));
+
+            addSubTitle("4) Summary sentences");
+            addParagraph(ownersEatTooMuch.join(" and ") + "'s dogs eat too much!");
+            addParagraph(ownersEatTooLittle.join(" and ") + "'s dogs eat too little!");
+
+            addSubTitle("5) Any dog eating EXACT recommended amount?");
+            var anyExact = false;
+            for (i = 0; i < dogs.length; i++) {
+                if (dogs[i].curFood === dogs[i].recommendedFood) {
+                    anyExact = true;
+                    break;
+                }
+            }
+            if (anyExact === true) {
+                addParagraph("true");
+            } else {
+                addParagraph("false");
+            }
+
+            addSubTitle("6) Any dog eating an OKAY amount?");
+            var anyOkay = false;
+            for (i = 0; i < dogs.length; i++) {
+                if (isEatingOkay(dogs[i]) === true) {
+                    anyOkay = true;
+                    break;
+                }
+            }
+            if (anyOkay === true) {
+                addParagraph("true");
+            } else {
+                addParagraph("false");
+            }
+
+            addSubTitle("7) Dogs eating an OKAY amount");
+            var dogsEatingOkay = [];
+            for (i = 0; i < dogs.length; i++) {
+                if (isEatingOkay(dogs[i]) === true) {
+                    dogsEatingOkay.push(dogs[i]);
+                }
+            }
+
+            if (dogsEatingOkay.length === 0) {
+                addParagraph("None");
+            } else {
+                var list7 = [];
+                for (i = 0; i < dogsEatingOkay.length; i++) {
+                    list7.push(dogsEatingOkay[i].owners.join(", "));
+                }
+                addList(list7);
+            }
+
+            addSubTitle("8) Dogs sorted by recommended food (ASC)");
+            var dogsSorted = dogs.slice();
+
+            dogsSorted.sort(function (a, b) {
+                if (a.recommendedFood > b.recommendedFood) {
+                    return 1;
+                } else if (a.recommendedFood < b.recommendedFood) {
+                    return -1;
+                } else {
+                    return 0;
+                }
+            });
+
+            var list8 = [];
+            for (i = 0; i < dogsSorted.length; i++) {
+                list8.push(
+                    (i + 1) + ". " +
+                    dogsSorted[i].owners.join(", ") +
+                    " | " + dogsSorted[i].recommendedFood.toFixed(0) + "g"
+                );
+            }
+            addList(list8);
+
+            console.log("dogs:", dogs);
+            console.log("ownersEatTooMuch:", ownersEatTooMuch);
+            console.log("ownersEatTooLittle:", ownersEatTooLittle);
+            console.log("dogsEatingOkay:", dogsEatingOkay);
+            console.log("dogsSorted:", dogsSorted);
+        }
+    </script>
+</body>
+</html>
