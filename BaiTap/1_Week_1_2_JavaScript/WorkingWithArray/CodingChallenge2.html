@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Coding Challenge #2 - Average Human Age</title>
+
+    <!-- LINK CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <h2>Coding Challenge #2 - Convert Dog Age to Human Age + Average</h2>
+
+        <form onsubmit="return false;">
+            <label>Dog ages (ví dụ: 5,2,4,1,15,8,3)</label>
+            <input type="text" id="agesInput" value="5,2,4,1,15,8,3">
+
+            <button onclick="runCalc()">Calculate Average Human Age</button>
+            <button onclick="runTest1()" style="margin-left: 10px;">Run Test Data 1</button>
+            <button onclick="runTest2()" style="margin-left: 10px;">Run Test Data 2</button>
+        </form>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calcAverageHumanAge(ages) {
+            // 1) Convert to human ages
+            const humanAges = ages.map(function (dogAge) {
+                if (dogAge <= 2) {
+                    return 2 * dogAge;
+                } else {
+                    return 16 + dogAge * 4;
+                }
+            });
+
+            // 2) Keep only adults (>= 18 human years)
+            const adults = humanAges.filter(function (humanAge) {
+                return humanAge >= 18;
+            });
+
+            // 3) Average of adults
+            const average = adults.reduce(function (sum, age) {
+                return sum + age;
+            }, 0) / adults.length;
+
+            return {
+                humanAges: humanAges,
+                adults: adults,
+                average: average
+            };
+        }
+
+        function parseInputAges(value) {
+            return value
+                .split(",")
+                .map(function (x) { return Number(x.trim()); })
+                .filter(function (x) { return !Number.isNaN(x); });
+        }
+
+        function showResult(ages) {
+            const data = calcAverageHumanAge(ages);
+
+            let text = "";
+            text += "Input ages: " + JSON.stringify(ages) + "\n\n";
+            text += "Human ages: " + JSON.stringify(data.humanAges) + "\n";
+            text += "Adult (>=18): " + JSON.stringify(data.adults) + "\n\n";
+            text += "Average human age of adults: " + data.average;
+
+            document.getElementById("result").textContent = text;
+        }
+
+        function runCalc() {
+            const agesValue = document.getElementById("agesInput").value;
+            const ages = parseInputAges(agesValue);
+
+            if (ages.length === 0) {
+                document.getElementById("result").textContent = "Bạn nhập sai dữ liệu. Hãy nhập dạng: 5,2,4,1,15,8,3";
+                return;
+            }
+
+            showResult(ages);
+        }
+
+        function runTest1() {
+            const test1 = [5, 2, 4, 1, 15, 8, 3];
+            document.getElementById("agesInput").value = test1.join(",");
+            showResult(test1);
+        }
+
+        function runTest2() {
+            const test2 = [16, 6, 10, 5, 6, 1, 4];
+            document.getElementById("agesInput").value = test2.join(",");
+            showResult(test2);
+        }
+    </script>
+</body>
+</html>

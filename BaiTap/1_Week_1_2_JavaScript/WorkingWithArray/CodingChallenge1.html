@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Coding Challenge #1 - Check Dogs</title>
+
+    <!-- LINK CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <h2>Coding Challenge #1 - Check Dogs</h2>
+
+        <form onsubmit="return false;">
+            <label>Julia's dogs ages</label>
+            <input type="text" id="juliaInput" value="3,5,2,12,7">
+
+            <label>Kate's dogs ages</label>
+            <input type="text" id="kateInput" value="4,1,15,8,3">
+
+            <button onclick="runCheck()">Check Dogs</button>
+        </form>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function checkDogs(dogsJulia, dogsKate) {
+            const juliaCopy = dogsJulia.slice();
+
+            juliaCopy.splice(0, 1);
+            juliaCopy.splice(-2);
+
+            const allDogs = juliaCopy.concat(dogsKate);
+
+            let output = "";
+
+            allDogs.forEach(function(age, index) {
+                if (age >= 3) {
+                    output += "Dog number " + (index + 1) +
+                              " is an adult, and is " + age +
+                              " years old\n";
+                } else {
+                    output += "Dog number " + (index + 1) +
+                              " is still a puppy 🐶\n";
+                }
+            });
+
+            return output;
+        }
+
+        function runCheck() {
+            const juliaInput = document.getElementById("juliaInput").value;
+            const kateInput = document.getElementById("kateInput").value;
+
+            const dogsJulia = juliaInput.split(",").map(Number);
+            const dogsKate = kateInput.split(",").map(Number);
+
+            const result = checkDogs(dogsJulia, dogsKate);
+            document.getElementById("result").textContent = result;
+        }
+    </script>
+</body>
+</html>

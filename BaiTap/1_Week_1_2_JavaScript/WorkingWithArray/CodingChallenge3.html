@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Coding Challenge #3 - Arrow Function & Chaining</title>
+
+    <!-- LINK CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <h2>Coding Challenge #3</h2>
+        <p>Rewrite calcAverageHumanAge using arrow function + chaining</p>
+
+        <form onsubmit="return false;">
+            <label>Dog ages (ví dụ: 5,2,4,1,15,8,3)</label>
+            <input type="text" id="agesInput" value="5,2,4,1,15,8,3">
+
+            <button onclick="runCalc()">Calculate</button>
+            <button onclick="runTest1()" style="margin-left:10px;">Test Data 1</button>
+            <button onclick="runTest2()" style="margin-left:10px;">Test Data 2</button>
+        </form>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        // Arrow function + chaining
+        const calcAverageHumanAge = ages =>
+            ages
+                .map(age => (age <= 2 ? age * 2 : 16 + age * 4))
+                .filter(humanAge => humanAge >= 18)
+                .reduce((sum, age, _, arr) => sum + age / arr.length, 0);
+
+        function parseInput(value) {
+            return value
+                .split(",")
+                .map(x => Number(x.trim()))
+                .filter(x => !Number.isNaN(x));
+        }
+
+        function showResult(ages) {
+            const average = calcAverageHumanAge(ages);
+
+            let text = "";
+            text += "Input ages: " + JSON.stringify(ages) + "\n\n";
+            text += "Average human age (adult dogs): " + average;
+
+            document.getElementById("result").textContent = text;
+        }
+
+        function runCalc() {
+            const input = document.getElementById("agesInput").value;
+            const ages = parseInput(input);
+
+            if (ages.length === 0) {
+                document.getElementById("result").textContent =
+                    "Dữ liệu không hợp lệ. Nhập dạng: 5,2,4,1,15,8,3";
+                return;
+            }
+
+            showResult(ages);
+        }
+
+        function runTest1() {
+            const data1 = [5, 2, 4, 1, 15, 8, 3];
+            document.getElementById("agesInput").value = data1.join(",");
+            showResult(data1);
+        }
+
+        function runTest2() {
+            const data2 = [16, 6, 10, 5, 6, 1, 4];
+            document.getElementById("agesInput").value = data2.join(",");
+            showResult(data2);
+        }
+    </script>
+</body>
+</html>
