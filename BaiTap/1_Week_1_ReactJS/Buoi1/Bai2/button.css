@@ -1,0 +1,65 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Canh giua noi dung cho dep */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f2f2f2;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.wrapper {
+  display: flex;
+  gap: 16px;
+}
+
+.btn {
+  padding: 12px 20px;
+  font-size: 14px;
+
+  border: none;
+  border-radius: 8px;
+
+  cursor: pointer;
+  color: white;
+
+  /* Hieu ung hover muot */
+  transition: background-color 0.3s ease;
+}
+
+/* ===== TYPE: PRIMARY ===== */
+.btn-primary {
+  background-color: #3498db;
+}
+
+/* Hover primary doi mau dam hon */
+.btn-primary:hover {
+  background-color: #2980b9;
+}
+
+/* ===== TYPE: SUCCESS ===== */
+.btn-success {
+  background-color: #2ecc71;
+}
+
+/* Hover success doi mau dam hon */
+.btn-success:hover {
+  background-color: #27ae60;
+}
+
+/* ===== TYPE: DANGER ===== */
+.btn-danger {
+  background-color: #e74c3c;
+}
+
+/* Hover danger doi mau dam hon */
+.btn-danger:hover {
+  background-color: #c0392b;
+}
