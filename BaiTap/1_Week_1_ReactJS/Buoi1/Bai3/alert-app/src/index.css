@@ -1,0 +1,59 @@
+/* Reset co ban */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f3f4f6;
+  color: #111827;
+}
+
+.khung {
+  min-height: 100vh;
+  padding: 28px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+}
+
+.tieu-de {
+  font-size: 22px;
+}
+
+.nhom-nut {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.nut {
+  border: none;
+  cursor: pointer;
+  padding: 10px 14px;
+  border-radius: 10px;
+  color: white;
+
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+.nut:hover {
+  transform: translateY(-2px);
+  opacity: 0.95;
+}
+
+/* Mau cho cac nut */
+.nut-success { background-color: #2ecc71; }
+.nut-warning { background-color: #f1c40f; color: #2b2b2b; }
+.nut-error { background-color: #e74c3c; }
+.nut-dong { background-color: #6b7280; }
+
+/* Khu vuc hien alert */
+.khu-vuc-alert {
+  margin-top: 6px;
+}
