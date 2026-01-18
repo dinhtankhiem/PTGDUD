@@ -1,0 +1,74 @@
+/* Reset cơ bản */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Canh giữa trang cho dễ nhìn */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.product-card {
+  width: 300px;
+  background-color: #ffffff;
+
+  border-radius: 12px;         /* Bo góc */
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15); /* Đổ bóng */
+
+  overflow: hidden;               /* Giữ bo góc cho ảnh */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover card nổi lên */
+.product-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.25);
+}
+
+.product-image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.product-content {
+  padding: 16px;
+  text-align: center;
+}
+
+.product-name {
+  font-size: 18px;
+  margin-bottom: 8px;
+  color: #333333;
+}
+
+.product-price {
+  font-size: 16px;
+  color: #e74c3c;
+  margin-bottom: 16px;
+}
+
+.btn-add-cart {
+  padding: 10px 16px;
+  background-color: #3498db;
+  color: #ffffff;
+
+  border: none;
+  border-radius: 6px;
+
+  cursor: pointer;
+  font-size: 14px;
+}
+
+/* Hover nút */
+.btn-add-cart:hover {
+  background-color: #2980b9;
+}
