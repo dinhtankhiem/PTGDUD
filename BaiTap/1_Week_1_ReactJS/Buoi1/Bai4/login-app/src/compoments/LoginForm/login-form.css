@@ -1,0 +1,72 @@
+/* Khung form */
+.login-form {
+  width: 360px;
+  max-width: 92vw;
+
+  background-color: #ffffff;
+  border-radius: 14px;
+  padding: 18px;
+
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* Tieu de */
+.login-title {
+  font-size: 20px;
+  text-align: center;
+  margin-bottom: 6px;
+}
+
+/* Field */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.label-text {
+  font-size: 13px;
+  color: #374151;
+}
+
+/* Input co focus effect */
+.input {
+  width: 100%;
+  padding: 10px 12px;
+
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Focus effect */
+.input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.18);
+}
+
+/* Button full width */
+.btn-login {
+  width: 100%;
+  padding: 11px 12px;
+
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+
+  background-color: #111827;
+  color: #ffffff;
+
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+.btn-login:hover {
+  transform: translateY(-1px);
+  opacity: 0.95;
+}
