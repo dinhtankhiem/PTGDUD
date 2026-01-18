@@ -1,0 +1,127 @@
+/* Reset co ban */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #f3f4f6;
+  color: #111827;
+}
+
+/* Khung trang */
+.page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+/* Header */
+.header {
+  margin-bottom: 18px;
+}
+
+.title {
+  font-size: 26px;
+  margin-bottom: 6px;
+}
+
+.subtitle {
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+/* ===== GRID DANH SACH SAN PHAM ===== */
+/* Mac dinh: Desktop 3 cot */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+/* Card */
+.product-card {
+  background: #ffffff;
+  border-radius: 14px;
+  overflow: hidden;
+
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.10);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Hover nhe cho dep */
+.product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.14);
+}
+
+.product-image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.product-body {
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.product-name {
+  font-size: 16px;
+}
+
+.product-price {
+  font-size: 14px;
+  color: #e74c3c;
+}
+
+/* Button */
+.btn-add {
+  border: none;
+  cursor: pointer;
+
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 10px;
+
+  background: #111827;
+  color: #ffffff;
+
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+.btn-add:hover {
+  transform: translateY(-1px);
+  opacity: 0.95;
+}
+
+/* ===== RESPONSIVE ===== */
+/* Tablet: 2 cot */
+@media (max-width: 900px) {
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .title {
+    font-size: 24px;
+  }
+}
+
+/* Mobile: 1 cot */
+@media (max-width: 600px) {
+  .product-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .page {
+    padding: 16px;
+  }
+
+  .title {
+    font-size: 22px;
+  }
+}
