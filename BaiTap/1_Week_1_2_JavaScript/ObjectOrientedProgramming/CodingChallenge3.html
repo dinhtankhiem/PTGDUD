@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Challenge #3 - Electric Car Constructor Function</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+<div class="container">
+    <h2>Coding Challenge #3 - Electric Car (Constructor Function)</h2>
+
+    <form onsubmit="return false;">
+        <button onclick="run()">Run</button>
+        <button onclick="clearResult()">Clear</button>
+    </form>
+
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    function clearResult() {
+        document.getElementById("result").innerHTML = "";
+    }
+
+    function addTitle(text) {
+        var box = document.getElementById("result");
+        var h3 = document.createElement("h3");
+        h3.textContent = text;
+        box.appendChild(h3);
+    }
+
+    function addList(items) {
+        var box = document.getElementById("result");
+        var ul = document.createElement("ul");
+
+        var i;
+        for (i = 0; i < items.length; i++) {
+            var li = document.createElement("li");
+            li.textContent = items[i];
+            ul.appendChild(li);
+        }
+
+        box.appendChild(ul);
+    }
+
+    // 1) Parent Constructor function
+    function Car(make, speed) {
+        this.make = make;
+        this.speed = speed;
+    }
+
+    Car.prototype.accelerate = function () {
+        this.speed = this.speed + 10;
+        console.log(this.make + " going at " + this.speed + " km/h");
+    };
+
+    Car.prototype.brake = function () {
+        this.speed = this.speed - 5;
+        console.log(this.make + " going at " + this.speed + " km/h");
+    };
+
+    // 2) Child Constructor function - Electric Car
+    function EV(make, speed, charge) {
+        Car.call(this, make, speed);
+        this.charge = charge;
+    }
+
+    // Link prototypes
+    EV.prototype = Object.create(Car.prototype);
+    EV.prototype.constructor = EV;
+
+    // 3) chargeBattery method
+    EV.prototype.chargeBattery = function (chargeTo) {
+        this.charge = chargeTo;
+        console.log("Battery charged to " + this.charge + "%");
+    };
+
+    // 4) Override accelerate method
+    EV.prototype.accelerate = function () {
+        this.speed = this.speed + 20;
+        this.charge = this.charge - 1;
+        console.log(this.make + " going at " + this.speed + " km/h, with a charge of " + this.charge + "%");
+    };
+
+    // 5) Create electric car and test
+    function run() {
+        clearResult();
+        addTitle("Result");
+
+        var car1 = new EV("Tesla", 120, 23);
+
+        var lines = [];
+
+        lines.push("Car 1: " + car1.make + " starts at " + car1.speed + " km/h, with a charge of " + car1.charge + "%");
+
+        car1.accelerate();
+        lines.push("Tesla accelerate -> Speed: " + car1.speed + " km/h, Charge: " + car1.charge + "%");
+
+        car1.accelerate();
+        lines.push("Tesla accelerate -> Speed: " + car1.speed + " km/h, Charge: " + car1.charge + "%");
+
+        car1.brake();
+        lines.push("Tesla brake -> Speed: " + car1.speed + " km/h, Charge: " + car1.charge + "%");
+
+        car1.chargeBattery(90);
+        lines.push("Tesla chargeBattery(90) -> Charge: " + car1.charge + "%");
+
+        car1.accelerate();
+        lines.push("Tesla accelerate -> Speed: " + car1.speed + " km/h, Charge: " + car1.charge + "%");
+
+        car1.accelerate();
+        lines.push("Tesla accelerate -> Speed: " + car1.speed + " km/h, Charge: " + car1.charge + "%");
+
+        addList(lines);
+    }
+</script>
+</body>
+</html>

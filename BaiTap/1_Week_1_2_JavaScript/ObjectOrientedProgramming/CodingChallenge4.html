@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Challenge #4 - Electric Car ES6 Class</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+<div class="container">
+    <h2>Coding Challenge #4 - Electric Car (ES6 Class with Method Chaining)</h2>
+
+    <form onsubmit="return false;">
+        <button onclick="run()">Run</button>
+        <button onclick="clearResult()">Clear</button>
+    </form>
+
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    function clearResult() {
+        document.getElementById("result").innerHTML = "";
+    }
+
+    function addTitle(text) {
+        var box = document.getElementById("result");
+        var h3 = document.createElement("h3");
+        h3.textContent = text;
+        box.appendChild(h3);
+    }
+
+    function addList(items) {
+        var box = document.getElementById("result");
+        var ul = document.createElement("ul");
+
+        var i;
+        for (i = 0; i < items.length; i++) {
+            var li = document.createElement("li");
+            li.textContent = items[i];
+            ul.appendChild(li);
+        }
+
+        box.appendChild(ul);
+    }
+
+    // 1) Parent ES6 Class
+    class CarCl {
+        constructor(make, speed) {
+            this.make = make;
+            this.speed = speed;
+        }
+
+        accelerate() {
+            this.speed = this.speed + 10;
+            console.log(this.make + " going at " + this.speed + " km/h");
+            return this;
+        }
+
+        brake() {
+            this.speed = this.speed - 5;
+            console.log(this.make + " going at " + this.speed + " km/h");
+            return this;
+        }
+
+        get speedUS() {
+            return this.speed / 1.6;
+        }
+
+        set speedUS(speedInMiles) {
+            this.speed = speedInMiles * 1.6;
+        }
+    }
+
+    // 2) Child ES6 Class - Electric Car
+    class EVCl extends CarCl {
+        // 3) Private field for charge
+        #charge;
+
+        constructor(make, speed, charge) {
+            super(make, speed);
+            this.#charge = charge;
+        }
+
+        // 4) chargeBattery method with chaining
+        chargeBattery(chargeTo) {
+            this.#charge = chargeTo;
+            console.log("Battery charged to " + this.#charge + "%");
+            return this;
+        }
+
+        // 5) Override accelerate method with chaining
+        accelerate() {
+            this.speed = this.speed + 20;
+            this.#charge = this.#charge - 1;
+            console.log(this.make + " going at " + this.speed + " km/h, with a charge of " + this.#charge + "%");
+            return this;
+        }
+
+        // Getter for charge (to display it)
+        getCharge() {
+            return this.#charge;
+        }
+    }
+
+    // 6) Create electric car and test with chaining
+    function run() {
+        clearResult();
+        addTitle("Result");
+
+        var car1 = new EVCl("Rivian", 120, 23);
+
+        var lines = [];
+
+        lines.push("Car 1: " + car1.make + " starts at " + car1.speed + " km/h, with a charge of " + car1.getCharge() + "%");
+
+        car1.accelerate();
+        lines.push("Rivian accelerate -> Speed: " + car1.speed + " km/h, Charge: " + car1.getCharge() + "%");
+
+        car1.accelerate();
+        lines.push("Rivian accelerate -> Speed: " + car1.speed + " km/h, Charge: " + car1.getCharge() + "%");
+
+        car1.brake();
+        lines.push("Rivian brake -> Speed: " + car1.speed + " km/h, Charge: " + car1.getCharge() + "%");
+
+        car1.chargeBattery(90);
+        lines.push("Rivian chargeBattery(90) -> Charge: " + car1.getCharge() + "%");
+
+        lines.push("--- Testing Method Chaining ---");
+        lines.push("Chaining: accelerate().accelerate().brake().chargeBattery(95)");
+
+        car1.accelerate().accelerate().brake().chargeBattery(95);
+        lines.push("After chaining -> Speed: " + car1.speed + " km/h, Charge: " + car1.getCharge() + "%");
+
+        lines.push("Chaining: chargeBattery(100).accelerate().brake().accelerate()");
+
+        car1.chargeBattery(100).accelerate().brake().accelerate();
+        lines.push("After chaining -> Speed: " + car1.speed + " km/h, Charge: " + car1.getCharge() + "%");
+
+        addList(lines);
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Challenge #2 - Car ES6 Class</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+<div class="container">
+    <h2>Coding Challenge #2 - Car (ES6 Class)</h2>
+
+    <form onsubmit="return false;">
+        <button onclick="run()">Run</button>
+        <button onclick="clearResult()">Clear</button>
+    </form>
+
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    function clearResult() {
+        document.getElementById("result").innerHTML = "";
+    }
+
+    function addTitle(text) {
+        var box = document.getElementById("result");
+        var h3 = document.createElement("h3");
+        h3.textContent = text;
+        box.appendChild(h3);
+    }
+
+    function addList(items) {
+        var box = document.getElementById("result");
+        var ul = document.createElement("ul");
+
+        var i;
+        for (i = 0; i < items.length; i++) {
+            var li = document.createElement("li");
+            li.textContent = items[i];
+            ul.appendChild(li);
+        }
+
+        box.appendChild(ul);
+    }
+
+    // 1) ES6 Class
+    class CarCl {
+        constructor(make, speed) {
+            this.make = make;
+            this.speed = speed;
+        }
+
+        // 2) accelerate (+10)
+        accelerate() {
+            this.speed = this.speed + 10;
+            console.log(this.make + " going at " + this.speed + " km/h");
+        }
+
+        // 3) brake (-5)
+        brake() {
+            this.speed = this.speed - 5;
+            console.log(this.make + " going at " + this.speed + " km/h");
+        }
+
+        // 4) Getter speedUS (returns speed in mi/h)
+        get speedUS() {
+            return this.speed / 1.6;
+        }
+
+        // 5) Setter speedUS (sets speed in mi/h, converts to km/h)
+        set speedUS(speedInMiles) {
+            this.speed = speedInMiles * 1.6;
+        }
+    }
+
+    // 6) Create car and test
+    function run() {
+        clearResult();
+        addTitle("Result");
+
+        var car1 = new CarCl("Ford", 120);
+
+        var lines = [];
+
+        lines.push("Car 1: " + car1.make + " starts at " + car1.speed + " km/h");
+        lines.push("Speed in US (mi/h): " + car1.speedUS.toFixed(2) + " mi/h");
+
+        car1.accelerate();
+        lines.push("Ford accelerate -> " + car1.speed + " km/h");
+        lines.push("Speed in US (mi/h): " + car1.speedUS.toFixed(2) + " mi/h");
+
+        car1.accelerate();
+        lines.push("Ford accelerate -> " + car1.speed + " km/h");
+        lines.push("Speed in US (mi/h): " + car1.speedUS.toFixed(2) + " mi/h");
+
+        car1.brake();
+        lines.push("Ford brake -> " + car1.speed + " km/h");
+        lines.push("Speed in US (mi/h): " + car1.speedUS.toFixed(2) + " mi/h");
+
+        lines.push("Setting speed to 50 mi/h using setter...");
+        car1.speedUS = 50;
+        lines.push("After setter: " + car1.speed + " km/h");
+        lines.push("Speed in US (mi/h): " + car1.speedUS.toFixed(2) + " mi/h");
+
+        car1.accelerate();
+        lines.push("Ford accelerate -> " + car1.speed + " km/h");
+        lines.push("Speed in US (mi/h): " + car1.speedUS.toFixed(2) + " mi/h");
+
+        addList(lines);
+    }
+</script>
+</body>
+</html>
