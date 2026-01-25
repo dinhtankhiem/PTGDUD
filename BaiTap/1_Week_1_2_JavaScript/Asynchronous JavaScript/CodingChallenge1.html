@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Challenge #1 - Where Am I (Geocoding API)</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+<div class="container">
+    <h2>Coding Challenge #1 - Where Am I (Geocoding API)</h2>
+
+    <form onsubmit="return false;">
+        <button onclick="run()">Run</button>
+        <button onclick="clearResult()">Clear</button>
+    </form>
+
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    function clearResult() {
+        document.getElementById("result").innerHTML = "";
+    }
+
+    function addTitle(text) {
+        var box = document.getElementById("result");
+        var h3 = document.createElement("h3");
+        h3.textContent = text;
+        box.appendChild(h3);
+    }
+
+    function addList(items) {
+        var box = document.getElementById("result");
+        var ul = document.createElement("ul");
+
+        var i;
+        for (i = 0; i < items.length; i++) {
+            var li = document.createElement("li");
+            li.textContent = items[i];
+            ul.appendChild(li);
+        }
+
+        box.appendChild(ul);
+    }
+
+    function addParagraph(text) {
+        var box = document.getElementById("result");
+        var p = document.createElement("p");
+        p.textContent = text;
+        p.style.margin = "10px 0";
+        box.appendChild(p);
+    }
+
+    // PART 1: whereAmI function
+    function whereAmI(lat, lng) {
+        // 2) Reverse geocoding using fetch API
+        var url = "https://geocode.xyz/" + lat + "," + lng + "?geoit=json";
+        
+        return fetch(url)
+            .then(function(response) {
+                // 5) Handle 403 error (rate limiting)
+                if (!response.ok) {
+                    throw new Error("Request failed with status: " + response.status + ". Too many requests! (Max 3 per second)");
+                }
+                return response.json();
+            })
+            .then(function(data) {
+                // Check if API is throttled
+                if (data.city && data.city.indexOf("Throttled") !== -1) {
+                    throw new Error("API rate limit exceeded! Please wait a moment and try again.");
+                }
+                
+                // 3) Log location message
+                var city = data.city || "Unknown";
+                var country = data.country || "Unknown";
+                console.log("You are in " + city + ", " + country);
+                
+                // 6) Return country name for countries API
+                return country;
+            })
+            .catch(function(error) {
+                // 4) Error handling
+                console.error("Error:", error.message);
+                throw error;
+            });
+    }
+
+    // PART 2: Render country using countries API
+    function renderCountry(countryName) {
+        var url = "https://restcountries.com/v3.1/name/" + encodeURIComponent(countryName) + "?fullText=true";
+        
+        return fetch(url)
+            .then(function(response) {
+                if (!response.ok) {
+                    throw new Error("Country not found");
+                }
+                return response.json();
+            })
+            .then(function(data) {
+                var country = data[0];
+                var box = document.getElementById("result");
+                
+                var html = "<div style='margin: 20px 0; padding: 15px; border: 1px solid #ccc; border-radius: 5px;'>";
+                html += "<h4>" + country.name.common + "</h4>";
+                html += "<p><strong>Region:</strong> " + country.region + "</p>";
+                html += "<p><strong>Population:</strong> " + country.population.toLocaleString() + "</p>";
+                html += "<p><strong>Language:</strong> " + Object.values(country.languages).join(", ") + "</p>";
+                html += "<p><strong>Currency:</strong> " + Object.keys(country.currencies).join(", ") + "</p>";
+                html += "</div>";
+                
+                box.innerHTML += html;
+            })
+            .catch(function(error) {
+                console.error("Error rendering country:", error.message);
+                addParagraph("Error: Could not render country information");
+            });
+    }
+
+    // Test function
+    function run() {
+        clearResult();
+        addTitle("Result");
+
+        var lines = [];
+        
+        // Test with first coordinate
+        whereAmI(52.508, 13.381)
+            .then(function(countryName) {
+                lines.push("Location found! Country: " + countryName);
+                addList(lines);
+                return renderCountry(countryName);
+            })
+            .catch(function(error) {
+                lines.push("Error: " + error.message);
+                addList(lines);
+            });
+    }
+</script>
+</body>
+</html>

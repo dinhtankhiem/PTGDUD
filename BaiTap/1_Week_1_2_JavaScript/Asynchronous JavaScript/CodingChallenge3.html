@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Challenge #3 - Async/Await and Parallel Image Loading</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .images {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .images img {
+            max-width: 100%;
+            height: auto;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+        }
+        .images img.hidden {
+            display: none;
+        }
+        .parallel {
+            display: inline-block;
+            margin: 10px;
+            border: 3px solid #4CAF50;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+    <h2>Coding Challenge #3 - Async/Await and Parallel Image Loading</h2>
+
+    <form onsubmit="return false;">
+        <button onclick="runPart1()">Run Part 1 (Async/Await)</button>
+        <button onclick="runPart2()">Run Part 2 (Parallel)</button>
+        <button onclick="clearResult()">Clear</button>
+    </form>
+
+    <div class="result" id="result"></div>
+    <div class="images" id="images"></div>
+</div>
+
+<script>
+    function clearResult() {
+        document.getElementById("result").innerHTML = "";
+        document.getElementById("images").innerHTML = "";
+    }
+
+    function addTitle(text) {
+        var box = document.getElementById("result");
+        var h3 = document.createElement("h3");
+        h3.textContent = text;
+        box.appendChild(h3);
+    }
+
+    function addList(items) {
+        var box = document.getElementById("result");
+        var ul = document.createElement("ul");
+
+        var i;
+        for (i = 0; i < items.length; i++) {
+            var li = document.createElement("li");
+            li.textContent = items[i];
+            ul.appendChild(li);
+        }
+
+        box.appendChild(ul);
+    }
+
+    function addParagraph(text) {
+        var box = document.getElementById("result");
+        var p = document.createElement("p");
+        p.textContent = text;
+        p.style.margin = "10px 0";
+        box.appendChild(p);
+    }
+
+    // Wait function
+    function wait(seconds) {
+        return new Promise(function(resolve) {
+            setTimeout(resolve, seconds * 1000);
+        });
+    }
+
+    // createImage function (reused from Challenge #2)
+    function createImage(imgPath) {
+        return new Promise(function(resolve, reject) {
+            var img = document.createElement("img");
+            img.src = imgPath;
+
+            img.addEventListener("load", function() {
+                var imagesContainer = document.querySelector(".images");
+                imagesContainer.appendChild(img);
+                resolve(img);
+            });
+
+            img.addEventListener("error", function() {
+                reject(new Error("Image not found: " + imgPath));
+            });
+        });
+    }
+
+    // Global variable to store current image
+    var currentImg;
+
+    // PART 1: loadNPause using async/await
+    // 1) Write async function that recreates Challenge #2
+    async function loadNPause() {
+        var lines = [];
+
+        try {
+            // Load first image
+            currentImg = await createImage("img/img-1.png");
+            lines.push("Image 1 loaded successfully");
+            addList(lines);
+
+            // Wait 2 seconds
+            await wait(2);
+
+            // Hide first image
+            currentImg.style.display = "none";
+            lines.push("Image 1 hidden after 2 seconds");
+            addList(lines);
+
+            // Load second image
+            currentImg = await createImage("img/img-2.png");
+            lines.push("Image 2 loaded successfully");
+            addList(lines);
+
+            // Wait 2 seconds
+            await wait(2);
+
+            // Hide second image
+            currentImg.style.display = "none";
+            lines.push("Image 2 hidden after 2 seconds");
+            addList(lines);
+
+        } catch (error) {
+            // 3) Error handler
+            lines.push("Error: " + error.message);
+            addList(lines);
+            console.error("Error loading image:", error);
+        }
+    }
+
+    // PART 2: loadAll - parallel loading
+    // 1) Create async function that receives array of image paths
+    async function loadAll(imgArr) {
+        var lines = [];
+        lines.push("Starting to load all images in parallel...");
+        addList(lines);
+
+        try {
+            // 2) Use .map to loop over array and load all images
+            var imgs = imgArr.map(function(imgPath) {
+                return createImage(imgPath);
+            });
+
+            // 3) Check imgs array in console
+            console.log("imgs array:", imgs);
+            lines.push("Created promises array with " + imgs.length + " promises");
+            addList(lines);
+
+            // 4) Use promise combinator (Promise.all) to get all images
+            var loadedImgs = await Promise.all(imgs);
+            lines.push("All images loaded successfully!");
+            addList(lines);
+
+            // 5) Add 'parallel' class to all images
+            var i;
+            for (i = 0; i < loadedImgs.length; i++) {
+                loadedImgs[i].classList.add("parallel");
+            }
+            lines.push("Added 'parallel' class to all images");
+            addList(lines);
+
+        } catch (error) {
+            lines.push("Error: " + error.message);
+            addList(lines);
+            console.error("Error loading images:", error);
+        }
+    }
+
+    // Run Part 1
+    function runPart1() {
+        clearResult();
+        addTitle("Part 1: Async/Await Version");
+        addParagraph("Loading images sequentially using async/await...");
+        addParagraph("Note: Set network speed to 'Fast 3G' in DevTools for better testing");
+        loadNPause();
+    }
+
+    // Run Part 2
+    function runPart2() {
+        clearResult();
+        addTitle("Part 2: Parallel Loading");
+        addParagraph("Loading all images in parallel...");
+        addParagraph("Note: Set network speed to 'Fast 3G' in DevTools for better testing");
+        
+        // Test data
+        var imgArr = ["img/img-1.png", "img/img-2.png", "img/img-3.png"];
+        loadAll(imgArr);
+    }
+</script>
+</body>
+</html>

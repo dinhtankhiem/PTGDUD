@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Challenge #2 - Image Loading with Promises</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .images {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .images img {
+            max-width: 100%;
+            height: auto;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+        }
+        .images img.hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+    <h2>Coding Challenge #2 - Image Loading with Promises</h2>
+
+    <form onsubmit="return false;">
+        <button onclick="run()">Run</button>
+        <button onclick="clearResult()">Clear</button>
+    </form>
+
+    <div class="result" id="result"></div>
+    <div class="images" id="images"></div>
+</div>
+
+<script>
+    function clearResult() {
+        document.getElementById("result").innerHTML = "";
+        document.getElementById("images").innerHTML = "";
+    }
+
+    function addTitle(text) {
+        var box = document.getElementById("result");
+        var h3 = document.createElement("h3");
+        h3.textContent = text;
+        box.appendChild(h3);
+    }
+
+    function addList(items) {
+        var box = document.getElementById("result");
+        var ul = document.createElement("ul");
+
+        var i;
+        for (i = 0; i < items.length; i++) {
+            var li = document.createElement("li");
+            li.textContent = items[i];
+            ul.appendChild(li);
+        }
+
+        box.appendChild(ul);
+    }
+
+    function addParagraph(text) {
+        var box = document.getElementById("result");
+        var p = document.createElement("p");
+        p.textContent = text;
+        p.style.margin = "10px 0";
+        box.appendChild(p);
+    }
+
+    // Wait function
+    function wait(seconds) {
+        return new Promise(function(resolve) {
+            setTimeout(resolve, seconds * 1000);
+        });
+    }
+
+    // PART 1: createImage function
+    // 1) Create function that returns a promise
+    function createImage(imgPath) {
+        return new Promise(function(resolve, reject) {
+            // Create new image element
+            var img = document.createElement("img");
+            img.src = imgPath;
+
+            // 2) When image loads, append to DOM and resolve
+            img.addEventListener("load", function() {
+                var imagesContainer = document.querySelector(".images");
+                imagesContainer.appendChild(img);
+                resolve(img);
+            });
+
+            // 2) If error loading image, reject promise
+            img.addEventListener("error", function() {
+                reject(new Error("Image not found: " + imgPath));
+            });
+        });
+    }
+
+    // Global variable to store current image
+    var currentImg;
+
+    // PART 2: Consume the promise
+    function run() {
+        clearResult();
+        addTitle("Result");
+        addParagraph("Loading images sequentially...");
+        addParagraph("Note: Set network speed to 'Fast 3G' in DevTools for better testing");
+
+        var lines = [];
+
+        // 4) Consume promise with .then and error handler
+        createImage("img/img-1.png")
+            .then(function(img) {
+                // 6) Store current image in global variable
+                currentImg = img;
+                lines.push("Image 1 loaded successfully");
+                addList(lines);
+                // 5) Wait 2 seconds
+                return wait(2);
+            })
+            .then(function() {
+                // 6) Hide current image
+                currentImg.style.display = "none";
+                lines.push("Image 1 hidden after 2 seconds");
+                addList(lines);
+                // 6) Load second image
+                return createImage("img/img-2.png");
+            })
+            .then(function(img) {
+                // 6) Store current image
+                currentImg = img;
+                lines.push("Image 2 loaded successfully");
+                addList(lines);
+                // 7) Wait 2 seconds again
+                return wait(2);
+            })
+            .then(function() {
+                // 8) Hide current image
+                currentImg.style.display = "none";
+                lines.push("Image 2 hidden after 2 seconds");
+                addList(lines);
+            })
+            // 4) Error handler
+            .catch(function(error) {
+                lines.push("Error: " + error.message);
+                addList(lines);
+                console.error("Error loading image:", error);
+            });
+    }
+</script>
+</body>
+</html>
