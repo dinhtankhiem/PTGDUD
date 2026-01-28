@@ -1,0 +1,59 @@
+/* Reset co ban */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f4f4;
+}
+
+/* Can giua man hinh */
+.counter-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Khung counter */
+.counter-box {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 300px;
+  text-align: center;
+  border: 1px solid #ddd;
+}
+
+/* Tieu de */
+.counter-title {
+  margin-bottom: 16px;
+}
+
+/* So dem */
+.counter-number {
+  font-size: 48px;
+  margin-bottom: 16px;
+  color: #333;
+}
+
+/* Mau do khi > 10 */
+.counter-number.red {
+  color: red;
+}
+
+/* Nhom nut */
+.counter-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Nut */
+.counter-buttons button {
+  padding: 8px 12px;
+  font-size: 16px;
+  cursor: pointer;
+}
