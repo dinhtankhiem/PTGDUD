@@ -1,0 +1,24 @@
+/* Khung badge */
+.status-badge {
+  padding: 10px 16px;
+  border-radius: 20px;
+  color: white;
+  font-weight: bold;
+  display: inline-block;
+  margin-bottom: 16px;
+}
+
+/* Trang thai online */
+.status-online {
+  background-color: green;
+}
+
+/* Trang thai offline */
+.status-offline {
+  background-color: gray;
+}
+
+/* Trang thai busy */
+.status-busy {
+  background-color: red;
+}
