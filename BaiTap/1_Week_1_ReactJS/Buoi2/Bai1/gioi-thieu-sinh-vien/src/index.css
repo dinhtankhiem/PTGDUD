@@ -1,0 +1,91 @@
+/* Reset co ban */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Nen va font */
+body {
+  font-family: Arial, sans-serif;
+  background: #f5f5f5;
+  color: #333333;
+}
+
+/* Khung tong */
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+.header {
+  background: #2c3e50;
+  color: white;
+  padding: 16px;
+  text-align: center;
+}
+
+.header__title {
+  font-size: 20px;
+}
+
+/* Noi dung chinh */
+.main {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+/* Card sinh vien */
+.student {
+  width: 360px;
+  background: white;
+  border: 1px solid #dddddd;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+/* Tieu de */
+.student__title {
+  font-size: 18px;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+/* Moi dong thong tin */
+.student__row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid #eeeeee;
+}
+
+/* Dong cuoi khong can vien */
+.student__row:last-child {
+  border-bottom: none;
+}
+
+/* Nhan */
+.student__label {
+  font-weight: bold;
+}
+
+/* Gia tri */
+.student__value {
+  color: #555555;
+}
+
+/* Footer */
+.footer {
+  background: #eeeeee;
+  text-align: center;
+  padding: 12px;
+}
+
+.footer__text {
+  font-size: 14px;
+}
