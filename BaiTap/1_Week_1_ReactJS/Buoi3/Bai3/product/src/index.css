@@ -1,0 +1,100 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f4f4;
+  color: #222;
+}
+
+.page {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.title {
+  font-size: 20px;
+}
+
+.panel {
+  background: #fff;
+  border: 1px solid #ddd;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.row-bottom {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 13px;
+  min-width: 180px;
+}
+
+.input {
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  background: white;
+}
+
+.toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.btn {
+  padding: 8px 10px;
+  border: none;
+  cursor: pointer;
+  background: #2c3e50;
+  color: white;
+}
+
+.summary {
+  background: #fff;
+  border: 1px solid #ddd;
+  padding: 10px 12px;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.list {
+  background: #fff;
+  border: 1px solid #ddd;
+}
+
+.item {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 12px;
+  border-top: 1px solid #eee;
+}
+
+.item:first-child {
+  border-top: none;
+}
+
+.note {
+  font-size: 13px;
+  color: #555;
+}
