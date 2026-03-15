@@ -1,0 +1,20 @@
+{
+  "todos": [
+    {
+      "id": "1",
+      "title": "Hoc React",
+      "completed": false
+    },
+    {
+      "id": "2",
+      "title": "Hoc Fetch API",
+      "completed": false
+    },
+    {
+      "id": "18a5",
+      "title": "Hoc ATTT",
+      "completed": false
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
