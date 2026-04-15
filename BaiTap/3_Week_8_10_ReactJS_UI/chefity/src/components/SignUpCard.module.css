@@ -1,0 +1,173 @@
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  padding: 36px 32px;
+  background: #ffffff;
+  border-radius: 30px;
+}
+
+.heading {
+  margin: 0;
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  font-size: 32px;
+  line-height: 48px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.form {
+  display: grid;
+  gap: 18px;
+}
+
+.rowPair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.fieldLabel {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.labelText {
+  color: #334155;
+  font-size: 14px;
+  line-height: 22px;
+  font-weight: 500;
+}
+
+.input {
+  width: 100%;
+  min-height: 52px;
+  padding: 14px 16px;
+  border-radius: 16px;
+  border: 1px solid #e2e8f0;
+  background: #f8fafc;
+  color: #0f172a;
+  font-size: 15px;
+  line-height: 22px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.input::placeholder {
+  color: #94a3b8;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #f44b87;
+  box-shadow: 0 0 0 4px rgba(244, 75, 135, 0.12);
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 0 4px;
+}
+
+.checkbox {
+  width: 20px;
+  height: 20px;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  accent-color: #f44b87;
+  margin-top: 4px;
+}
+
+.checkboxText {
+  color: #334155;
+  font-size: 14px;
+  line-height: 22px;
+}
+
+.link {
+  color: #f44b87;
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+.submitButton {
+  width: 100%;
+  min-height: 52px;
+  border-radius: 16px;
+  border: none;
+  background: #f44b87;
+  color: #ffffff;
+  font-size: 16px;
+  line-height: 26px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0px 12px 20px rgba(244, 75, 135, 0.18);
+  transition: background 0.2s ease, transform 0.1s ease, opacity 0.2s ease;
+}
+
+.submitButton:hover:not(:disabled) {
+  background: #f0105e;
+}
+
+.submitButton:active:not(:disabled) {
+  background: #d20d52;
+  transform: translateY(1px);
+}
+
+.submitButton:disabled {
+  opacity: 0.52;
+  cursor: not-allowed;
+}
+
+.loginText {
+  margin: 0;
+  text-align: center;
+  color: #475569;
+  font-size: 14px;
+  line-height: 22px;
+}
+
+.loginLink {
+  color: #f44b87;
+  text-decoration: none;
+}
+
+.loginLink:hover {
+  text-decoration: underline;
+}
+
+.dividerWrapper {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.dividerLine {
+  flex: 1;
+  height: 1px;
+  background: #e2e8f0;
+}
+
+.dividerText {
+  color: #64748b;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.socialGroup {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+
+@media (max-width: 520px) {
+  .rowPair {
+    grid-template-columns: 1fr;
+  }
+}

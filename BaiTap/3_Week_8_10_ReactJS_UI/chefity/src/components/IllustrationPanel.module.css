@@ -1,0 +1,172 @@
+.panel {
+  position: relative;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 48px 40px;
+  background: linear-gradient(180deg, #ff6ea0 0%, #f44b87 100%);
+  overflow: hidden;
+  color: #ffffff;
+}
+
+.decorativeTop {
+  position: absolute;
+  top: -44px;
+  right: -48px;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.heroScene {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 380px;
+}
+
+.lineRing {
+  position: absolute;
+  width: 240px;
+  height: 240px;
+  border-radius: 50%;
+  border: 2px dashed rgba(255, 255, 255, 0.35);
+}
+
+.heroFigure {
+  position: relative;
+  width: 240px;
+  height: 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.head {
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  background: #ffffff;
+  display: grid;
+  place-items: center;
+  position: relative;
+}
+
+.eye {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #ff4b87;
+  position: absolute;
+}
+
+.eye:first-child {
+  left: 20px;
+}
+
+.eye:last-child {
+  right: 20px;
+}
+
+.torso {
+  width: 160px;
+  height: 180px;
+  border-radius: 100px 100px 16px 16px;
+  background: rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(6px);
+}
+
+.arms {
+  position: absolute;
+  top: 178px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.armLeft,
+.armRight {
+  width: 34px;
+  height: 84px;
+  border-radius: 32px;
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.armLeft {
+  transform: rotate(-28deg);
+}
+
+.armRight {
+  transform: rotate(22deg);
+}
+
+.legs {
+  display: flex;
+  gap: 16px;
+}
+
+.leg {
+  width: 36px;
+  height: 96px;
+  border-radius: 24px;
+  background: #2dd8f0;
+}
+
+.sparkOne,
+.sparkTwo {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #ffffff;
+  opacity: 0.84;
+}
+
+.sparkOne {
+  top: 18%;
+  left: 18%;
+}
+
+.sparkTwo {
+  bottom: 18%;
+  right: 18%;
+}
+
+.panelText {
+  margin: 0;
+  font-size: 18px;
+  line-height: 28px;
+  font-weight: 500;
+  color: #ffffff;
+  max-width: 240px;
+}
+
+.badge {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.14);
+  font-size: 14px;
+  line-height: 20px;
+  color: #ffffff;
+}
+
+.badgeIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #ffffff;
+  color: #f44b87;
+  font-weight: 700;
+}
