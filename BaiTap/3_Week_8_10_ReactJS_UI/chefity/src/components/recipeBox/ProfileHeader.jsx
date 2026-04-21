@@ -1,0 +1,2 @@
+function ProfileHeader({ profile }) { return <section className="profile-header"><img src={profile.avatar} alt={profile.name} /><div><p className="breadcrumb">Home / Recipe Box</p><h1>{profile.name}'s Recipe Box</h1><p>{profile.description}</p><div className="profile-row"><span>{profile.subscribers} subscribers</span><button className="btn btn-soft">Share</button></div></div></section>; }
+export default ProfileHeader;
